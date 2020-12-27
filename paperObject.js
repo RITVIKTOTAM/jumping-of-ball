@@ -21,7 +21,7 @@ class Paper{
       var angle = this.body.angle;
       push();
       translate(pos.x, pos.y);
-      this.body.velocityX = 2;
+      
       rotate(angle);
       fill(255);
       circle(0, 0, this.width);
