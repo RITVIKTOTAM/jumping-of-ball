@@ -1,42 +1,41 @@
+
+
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
-const Body = Matter.Body;
 
 var engine,world;
-var log1Sprite,log2Sprite,log3Sprite,log4Sprite,paperObjectBody,log1,log2,log3,log4;
+var paperObjectBody,log1,log2,log3,log4,dustbinImage;
 
+function preload(){
+
+  dustbinImage = loadImage("dustbingreen.png")
+ 
+}
 
 function setup() {
 	var canvas = createCanvas(800,400);
 
   
+   
     
-    log1Sprite = createSprite(600,385,100,10);
-    log2Sprite = createSprite(400,395,800,10);
-    log3Sprite = createSprite(550,365,10,50);
-    log4Sprite = createSprite(650,365,10,50);
    
     
 	engine = Engine.create();
 	world = engine.world;
   
   
-  paperObjectBody = new Paper(200,295,20,20);
+  paperObjectBody = new Paper(200,185,15);
 
-  log1 = Bodies.rectangle(600,385,100,10,{isStatic:true});
-  World.add(world,log1);
-
-	log2 = Bodies.rectangle(400,395,800,10,{isStatic:true});
-  World.add(world,log2);
-
-  log3 = Bodies.rectangle(550,365,100,10,{isStatic:true});
-  World.add(world,log3);
+  log1 = new Log(630,185,100,10);
+  
+	log2 = new Ground(400,395,800,10);
+ 
+  log3 = new Log(580,165,10,80);
+  
+  log4 = new Log(680,165,10,80);
+  
    
-  log4 = Bodies.rectangle(650,365,100,10,{isStatic:true});
-  World.add(world,log4);
-   
-   Engine.run(engine);
     
 }
 
@@ -46,19 +45,21 @@ function draw() {
   background(0);
   Engine.update(engine);
  
-   
+  imageMode(CENTER);
+  image (dustbinImage,630,330,100,100);
  
- ellipse(paperObjectBody.x,paperObjectBody.y,20);
+
  
  paperObjectBody.display();
+ log1.display();
+ log2.display();
+ log3.display();
+ log4.display();
  
- drawSprites();
 }
 
 function keyPressed(){
-  if  (keyCode === UP_ARROW){
-    Matter.Body.applyForce(paperObjectBody,paperObjectBody.position,{x:85,y:-85});
+  if  (keyDown(UP_ARROW)){
+    Matter.Body.applyForce(paperObjectBody.body,paperObjectBody.body.position,{x:30,y:-30});
   }
- 
-
 }
